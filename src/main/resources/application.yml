@@ -10,4 +10,4 @@ spring:
 server:
   servlet:
     context-path: /journalapplication/v1
-#  port: 7777
+  port: 7777
