@@ -1,13 +1,12 @@
 spring:
-  application:
-    name: journalApp
-  data:
-    mongdb:
-      uri: mongodb+srv://ayushkumar2637_db_user:YGtJ4SvVVzpvcxGH@cluster0.uzfopkq.mongodb.net/?appName=Cluster0
-      database: JournalDB
-      auto-index-creation: true
+  profiles:
+    active: dev
 
-server:
-  servlet:
-    context-path: /journalapplication/v1
-#  port: 7777
+# NOTE 1 : With this command we set profile as prod and the properties set by system argument get highest priority
+# so, even if here active profile is dev but it override to prod if run this command
+# java -jar journalApp-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+
+# NOTE 2 : If any test cases are present and we want to create a jar file of latest code ( we want to package our code )
+# so, when we run maven command for packing than it run all the test cases so, these also we have to specify which profile to use
+# bcoz while run test case due to @SpringBootTest whole application context get start and it create connection with db to run all test cases
+# command is : .\mvnw clean package -D spring.profiles.active=prod
