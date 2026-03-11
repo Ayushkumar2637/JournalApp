@@ -2,6 +2,10 @@ spring:
   profiles:
     active: dev
 
+#logging:
+#  level:
+#    root : debug
+
 # NOTE 1 : With this command we set profile as prod and the properties set by system argument get highest priority
 # so, even if here active profile is dev but it override to prod if run this command
 # java -jar journalApp-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod

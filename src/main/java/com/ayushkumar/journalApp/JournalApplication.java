@@ -1,6 +1,7 @@
 package com.ayushkumar.journalApp;
 
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Arrays;
 
+@Slf4j
 @SpringBootApplication
 @EnableTransactionManagement
 public class JournalApplication {
@@ -21,9 +23,9 @@ public class JournalApplication {
 	public static void main(String[] args) {
 		ApplicationContext context=SpringApplication.run(JournalApplication.class, args);
 		Environment environment = context.getEnvironment();
-		System.out.println(Arrays.toString(environment.getActiveProfiles()));
-		System.out.println("context-path : "+environment.getProperty("server.servlet.context-path"));
-		System.out.println("port : "+environment.getProperty("server.port"));
+		log.debug(Arrays.toString(environment.getActiveProfiles()));
+		log.debug("context-path : {}",environment.getProperty("server.servlet.context-path"));
+		log.info("port : {}",environment.getProperty("server.port"));
 	}
 
 	//  it didn't work on config package - need to check this

@@ -3,6 +3,7 @@ package com.ayushkumar.journalApp.Services.Impl;
 import com.ayushkumar.journalApp.Entity.UserEntity;
 import com.ayushkumar.journalApp.Repository.UserRepository;
 import com.ayushkumar.journalApp.Services.UserServices;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class UserServicesImpl implements UserServices {
 
@@ -61,6 +63,7 @@ public class UserServicesImpl implements UserServices {
             dbUser.getRoles().add("ADMIN");
             userRepository.save(dbUser);
         }
+        log.warn("User {} get all admin rights",userName);
         return dbUser;
     }
 
@@ -80,6 +83,7 @@ public class UserServicesImpl implements UserServices {
         UserEntity fetchedUser=userRepository.findById(objectId).orElse(null);
         if(fetchedUser!=null){
             userRepository.deleteById(objectId);
+            log.warn("User {} is deleted from database",fetchedUser);
             return true;
         }
         return false;
