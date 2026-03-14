@@ -14,3 +14,5 @@ spring:
 # so, when we run maven command for packing than it run all the test cases so, these also we have to specify which profile to use
 # bcoz while run test case due to @SpringBootTest whole application context get start and it create connection with db to run all test cases
 # command is : .\mvnw clean package -D spring.profiles.active=prod
+
+#NOTE 3 : Command for package without running test cases because it failed build when any test fail. ./mvnw clean install -DskipTests
