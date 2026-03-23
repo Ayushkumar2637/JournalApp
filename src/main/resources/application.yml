@@ -2,6 +2,10 @@ spring:
   profiles:
     active: dev
 
+weather:
+  api:
+    key : d84d6432996351858756825c98c295a4
+
 #logging:
 #  level:
 #    root : debug
