@@ -28,6 +28,8 @@ public class UserEntity {
     private String userName;
     @NonNull
     private String password;
+    private String email;
+    private boolean semanticAnalysis;
 
     @DBRef
     private List<JournalEntity> journalEntities=new ArrayList<>();
