@@ -1,5 +1,6 @@
 package com.ayushkumar.journalApp.Entity;
 
+import com.ayushkumar.journalApp.Enum.Sementic;
 import com.mongodb.lang.NonNull;
 import lombok.*;
 import org.bson.types.ObjectId;
@@ -22,6 +23,8 @@ public class JournalEntity {
     @Field(name = "my_content")
     private String content;
     private LocalDateTime dateTime;
+
+    private Sementic sementic;
 
 
 }

@@ -50,6 +50,10 @@ public class UserServicesImpl implements UserServices {
             if(newUser.getPassword()!=null && !newUser.getPassword().equals("")){
                 oldUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
             }
+            if(newUser.getEmail()!=null && !newUser.getEmail().equals("")){
+                oldUser.setEmail(newUser.getEmail());
+            }
+            oldUser.setSemanticAnalysis(newUser.isSemanticAnalysis());
 
             userRepository.save(oldUser);
         }
