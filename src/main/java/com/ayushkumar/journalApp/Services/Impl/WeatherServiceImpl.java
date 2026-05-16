@@ -2,6 +2,7 @@ package com.ayushkumar.journalApp.Services.Impl;
 
 import com.ayushkumar.journalApp.ApiResponse.WeatherResponse;
 import com.ayushkumar.journalApp.AppCache.AppCache;
+import com.ayushkumar.journalApp.Repository.RedisRepository;
 import com.ayushkumar.journalApp.Services.WeatherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,23 @@ public class WeatherServiceImpl implements WeatherService {
     @Value("${weather.api.key}")
     private String apiKey ;
 
+    @Autowired
+    private RedisRepository redisRepository;
+
     @Override
     public WeatherResponse weatherinfo(String city) {
-        String finalApi = appCache.urls.getOrDefault("weather-api",null).replace("<API_KEY>", apiKey).replace("<CITY>", city);
-        ResponseEntity<WeatherResponse> response = restTemplate.exchange(finalApi, HttpMethod.GET, null, WeatherResponse.class);
-        log.info(response.getStatusCode().toString());
-        WeatherResponse weatherResponse = response.getBody();
+        WeatherResponse weatherResponse=redisRepository.get("weather-"+city,WeatherResponse.class);
+        if(weatherResponse!=null){
+            log.info("Response processed form Redis : "+weatherResponse);
+        }
+        else {
+            String finalApi = appCache.urls.getOrDefault("weather-api",null).replace("<API_KEY>", apiKey).replace("<CITY>", city);
+            ResponseEntity<WeatherResponse> response = restTemplate.exchange(finalApi, HttpMethod.GET, null, WeatherResponse.class);
+            log.info(response.getStatusCode().toString());
+            weatherResponse = response.getBody();
+            boolean res=redisRepository.saveWithTTLInSec("weather-"+city,weatherResponse,10l);
+            log.info("Value is saved in redis : "+res);
+        }
         return weatherResponse;
     }
 

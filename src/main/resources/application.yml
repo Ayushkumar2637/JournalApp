@@ -12,6 +12,11 @@ spring:
           auth: true
           starttls:
             enable: true
+  data:
+    redis:
+      host: redis-10826.crce283.ap-south-1-2.ec2.cloud.redislabs.com
+      port: 10826
+      password: MVCBEZ1jvsBN7egGB3EzOwbI9sltJb2u
 
 weather:
   api:
