@@ -17,6 +17,34 @@ spring:
       host: redis-10826.crce283.ap-south-1-2.ec2.cloud.redislabs.com
       port: 10826
       password: MVCBEZ1jvsBN7egGB3EzOwbI9sltJb2u
+  kafka:
+    bootstrap-servers: kafka4journal-journalapp1.c.aivencloud.com:24408
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: usersementic-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.ayushkumar.journalApp.Model
+    properties:
+      security:
+        protocol: SASL_SSL
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username=${kafkauser} password=${kafkapass};
+      session:
+        timeout:
+          ms: 45000
+      ssl:
+        truststore:
+          location: D:\journalApp\src\main\resources\kafka.truststore.jks
+          password: changeit
 
 weather:
   api:
